@@ -6,3 +6,4 @@ require_relative 'customer_repository'
 class SalesEngine
   # your code goes here
 end
+

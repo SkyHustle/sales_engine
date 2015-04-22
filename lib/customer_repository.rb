@@ -13,11 +13,11 @@ class CustomerRepository
 
   def load_data(path)
     file = load_file(path)
-    
-    @customers = file.map do |line|
-      Customer.new(line, self)
+    @customers = file.map do |row|
+      Customer.new(row, self)
     end
     file.close
   end
 
 end
+
