@@ -14,5 +14,10 @@ class Customer
     @updated_at = row[:updated_at]
     @repository = repository
   end
+
+  def invoices
+    # invoices returns a collection of Invoice instances 
+    # associated with this object.
+  end
 end
 
