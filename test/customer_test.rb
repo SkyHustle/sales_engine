@@ -17,14 +17,6 @@ class CustomerTest < Minitest::Test
             }
   end
 
-  def test_it_converts_id_to_integer_using_actual_data
-    cr = CustomerRepository.new(nil)
-    cr.load_data("./fixtures/customers.csv")
-    customer = Customer.new(data, cr)
-    assert_equal Fixnum, customer.id.class
-    refute_equal String, customer.id.class
-  end
-
   def test_it_converts_id_to_integer_using_psuedo_data
     customer = Customer.new(data, nil) 
     assert_equal Fixnum, customer.id.class
@@ -59,6 +51,19 @@ class CustomerTest < Minitest::Test
     customer = Customer.new(data, nil)
     assert_equal "2012-03-27 14:54:09 UTC", customer.updated_at
     refute_equal "2013-02-27 14:54:09 UTC", customer.updated_at
+  end
+
+  def test_it_knows_its_repository
+    repo     = CustomerRepository.new(nil)
+    customer = Customer.new(data, repo)
+    assert repo, customer.repository
+  end
+
+  def test_it_is_not_equal_to_a_different_instance_of_repository
+    repo     = CustomerRepository.new(nil)
+    repo.load_data("./fixtures/customers.csv")
+    customer = Customer.new(data,repo)
+    assert customer.repository != CustomerRepository.new(nil)
   end
 
 end

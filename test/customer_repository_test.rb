@@ -33,7 +33,5 @@ class CustomerRepositoryTest < Minitest::Test
     refute_equal 15, customer_repository.customers[1].id
     refute_equal "hamilton", customer_repository.customers[1].last_name
   end
-
-
 end
 

@@ -18,14 +18,45 @@ class ItemTest < Minitest::Test
               }
   end
 
-  def test_it_has_the_expected_id_using_actual_data
-    skip
-    item = Item.new(data, nil)
-    assert 1, item.id
-  end
-
   def test_it_has_the_expected_id
     item = Item.new(data, nil)
-    assert 1, item.id
+    assert_equal 1, item.id
+    refute_equal 3, item.id
+  end
+
+  def test_it_has_the_expected_name
+    item = Item.new(data, nil)
+    assert_equal "Item Qui Esse", item.name
+    refute_equal "Item Qui E", item.name
+  end
+
+  def test_it_has_the_expected_description
+    item = Item.new(data, nil)
+    assert_equal "Nihil autem sit", item.description
+    refute_equal "Nihil sit", item.description
+  end
+
+  def test_it_has_the_expected_unit_price
+    skip
+    item = Item.new(data, nil)
+    assert_equal "75107", item.unit_price
+  end
+
+  def test_it_has_the_expected_merchant_id
+    item = Item.new(data, nil)
+    assert_equal 1, item.id
+    refute_equal 5, item.id
+  end
+
+  def test_it_has_the_expected_created_at
+    item = Item.new(data, nil)
+    assert_equal "2012-03-27 14:53:59 UTC", item.created_at
+    refute_equal " 14:53:59 UTC", item.created_at
+  end
+
+  def test_it_has_the_expected_updated_at
+    item = Item.new(data, nil)
+    assert_equal "2012-03-27 14:53:59 UTC", item.updated_at
+    refute_equal "2012-03-27 14:53:59", item.updated_at
   end
 end
