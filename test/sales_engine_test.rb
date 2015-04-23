@@ -7,9 +7,9 @@ class SalesEngineTest < Minitest::Test
   def setup
     @sales_engine = SalesEngine.new("./data")
     @sales_engine.startup
-    unless @sales_engine
-      @sales_engine
-    end
+    # unless @sales_engine
+    #   @sales_engine
+    # end
   end
 
   def test_it_exists
@@ -21,8 +21,14 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_it_can_load_data_at_startup
-    sales_engine.customer_repository.load_data("./data/customers.csv")
-
+    sales_engine.customer_repository.load_data("./fixtures/customers.csv")
     refute sales_engine.customer_repository.customers.empty?
   end
+
+  def test_it_can_load_customer_id
+    sales_engine.customer_repository.load_data("./fixtures/customers.csv")
+    assert_equal 6, sales_engine.customer_repository.customers[5].id
+  end
+
+
 end

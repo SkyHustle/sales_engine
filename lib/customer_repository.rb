@@ -19,6 +19,11 @@ class CustomerRepository
     file.close
   end
 
+
+
+
+  
+
   def find_by_first_name(name)
     
   end
