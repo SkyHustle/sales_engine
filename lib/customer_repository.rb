@@ -7,7 +7,7 @@ class CustomerRepository
   include LoadFile
 
   def initialize(sales_engine)
-    @customers = []
+    @customers    = []
     @sales_engine = sales_engine
   end
 
@@ -22,7 +22,7 @@ class CustomerRepository
 
 
 
-  
+
 
   def find_by_first_name(name)
     

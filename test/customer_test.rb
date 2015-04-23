@@ -17,7 +17,7 @@ class CustomerTest < Minitest::Test
             }
   end
 
-  def test_it_converts_id_to_integer
+  def test_it_converts_id_to_integer_using_actual_data
     cr = CustomerRepository.new(nil)
     cr.load_data("./fixtures/customers.csv")
     customer = Customer.new(data, cr)
@@ -25,7 +25,7 @@ class CustomerTest < Minitest::Test
     refute_equal String, customer.id.class
   end
 
-  def test_it_converts_id_to_integer
+  def test_it_converts_id_to_integer_using_psuedo_data
     customer = Customer.new(data, nil) 
     assert_equal Fixnum, customer.id.class
     refute_equal String, customer.id.class

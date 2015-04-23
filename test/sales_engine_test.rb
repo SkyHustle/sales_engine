@@ -5,15 +5,11 @@ class SalesEngineTest < Minitest::Test
   attr_reader :sales_engine
 
   def setup
-    @sales_engine = SalesEngine.new("./data")
+    @sales_engine = SalesEngine.new("./fixtures")
     @sales_engine.startup
     # unless @sales_engine
     #   @sales_engine
     # end
-  end
-
-  def test_it_exists
-    assert SalesEngine.new("./data")
   end
 
   def test_it_can_start_up
@@ -28,7 +24,11 @@ class SalesEngineTest < Minitest::Test
   def test_it_can_load_customer_id
     sales_engine.customer_repository.load_data("./fixtures/customers.csv")
     assert_equal 6, sales_engine.customer_repository.customers[5].id
+    refute_equal 21, sales_engine.customer_repository.customers[5].id
   end
 
-
+  def test_it_can_load_item_id
+    sales_engine.customer_repository.load_data("./fixtures/items.csv")
+    assert_equal 3, sales_engine.item_repository.items[2].id
+  end
 end
