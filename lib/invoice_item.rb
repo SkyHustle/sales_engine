@@ -22,4 +22,12 @@ class InvoiceItem
     @repository   = repository
     # @revenue      = BigDecimal.new(row[:unit_price])/100 * line[:quantity].to_i
   end
+
+  def invoice
+    repository.find_invoice(id)
+  end
+
+  def item
+    repository.find_item(item_id)
+  end
 end

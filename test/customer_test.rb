@@ -17,7 +17,7 @@ class CustomerTest < Minitest::Test
             }
   end
 
-  def test_it_converts_id_to_integer_using_psuedo_data
+  def test_it_converts_id_to_integer
     customer = Customer.new(data, nil) 
     assert_equal Fixnum, customer.id.class
     refute_equal String, customer.id.class

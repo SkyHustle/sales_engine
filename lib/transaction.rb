@@ -8,14 +8,14 @@ class Transaction
               :updated_at,
               :repository
 
-  def initialize(line, repository)
-    @id                          = line[:id].to_i
-    @invoice_id                  = line[:invoice_id].to_i
-    @credit_card_number          = line[:credit_card_number]
-    @credit_card_expiration_date = line[:credit_card_expiration_date]
-    @result                      = line[:result]
-    @created_at                  = line[:created_at]
-    @updated_at                  = line[:updated_at]
+  def initialize(row, repository)
+    @id                          = row[:id].to_i
+    @invoice_id                  = row[:invoice_id].to_i
+    @credit_card_number          = row[:credit_card_number].to_i
+    @credit_card_expiration_date = row[:credit_card_expiration_date]
+    @result                      = row[:result]
+    @created_at                  = row[:created_at]
+    @updated_at                  = row[:updated_at]
     @repository                  = repository
   end
 
@@ -26,4 +26,5 @@ class Transaction
   def successful?
     result == "success"
   end
+
 end
