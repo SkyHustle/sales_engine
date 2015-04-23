@@ -55,7 +55,6 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_it_can_talk_to_the_repository_with_invoice_items
-    skip
     parent = Minitest::Mock.new
     invoice = Invoice.new(data, parent)
     parent.expect(:find_invoice_items, [1, 2], [1])
@@ -63,17 +62,15 @@ class InvoiceTest < Minitest::Test
     parent.verify
   end
 
-  def test_it_can_talk_to_the_repository_with_invoice_items
-    skip
+  def test_it_can_talk_to_the_repository_with_items
     parent = Minitest::Mock.new
     invoice = Invoice.new(data, parent)
-    parent.expect(:find_invoice_items, [1, 2], [1])
-    assert_equal [1, 2], invoice.invoice_items
+    parent.expect(:find_items, [1, 2], [1])
+    assert_equal [1, 2], invoice.items
     parent.verify
   end
 
   def test_it_can_talk_to_the_repository_with_customer
-    skip
     parent = Minitest::Mock.new
     invoice = Invoice.new(data, parent)
     parent.expect(:find_customer, [1, 2], [1])
@@ -81,10 +78,11 @@ class InvoiceTest < Minitest::Test
     parent.verify
   end
 
-  def test_it_can_get_its_items
-    skip
-    sales_engine = SalesEngine.new("./data")
-    sales_engine.startup
-    assert_equal 8, sales_engine.invoice_repository.invoices[0].items.size
+  def test_it_can_talk_to_the_repository_with_customer
+    parent = Minitest::Mock.new
+    invoice = Invoice.new(data, parent)
+    parent.expect(:find_merchant, [1, 2], [1])
+    assert_equal [1, 2], invoice.merchant
+    parent.verify
   end
 end

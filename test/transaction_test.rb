@@ -66,5 +66,4 @@ class TransactionTest < Minitest::Test
     assert_equal "pizza", transaction.invoice
     parent.verify
   end
-
 end

@@ -49,7 +49,6 @@ class MerchantTest < Minitest::Test
   end
 
   def test_it_can_talk_to_its_repository
-    skip
     parent = Minitest::Mock.new
     merchant = Merchant.new(data, parent)
     parent.expect(:find_invoices, [1, 2], [1])

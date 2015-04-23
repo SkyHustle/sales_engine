@@ -66,8 +66,11 @@ class CustomerTest < Minitest::Test
     assert customer.repository != CustomerRepository.new(nil)
   end
 
+  def test_it_can_talk_to_its_repository
+    parent = Minitest::Mock.new
+    customer = Customer.new(data, parent)
+    parent.expect(:find_invoices, [1, 2], [1])
+    assert_equal [1, 2], customer.invoices
+    parent.verify
+  end
 end
-
-
-
-

@@ -37,9 +37,8 @@ class ItemTest < Minitest::Test
   end
 
   def test_it_has_the_expected_unit_price
-    skip
     item = Item.new(data, nil)
-    assert_equal "75107", item.unit_price
+    assert_equal 75107, item.unit_price
   end
 
   def test_it_has_the_expected_merchant_id
@@ -58,5 +57,21 @@ class ItemTest < Minitest::Test
     item = Item.new(data, nil)
     assert_equal "2012-03-27 14:53:59 UTC", item.updated_at
     refute_equal "2012-03-27 14:53:59", item.updated_at
+  end
+
+  def test_it_can_talk_to_its_repository
+    parent = Minitest::Mock.new
+    item = Item.new(data, parent)
+    parent.expect(:find_invoice_items, [1, 2], [1])
+    assert_equal [1, 2], item.invoice_items
+    parent.verify
+  end
+
+  def test_it_can_talk_to_its_repository
+    parent = Minitest::Mock.new
+    item = Item.new(data, parent)
+    parent.expect(:find_merchant, [1, 2], [1])
+    assert_equal [1, 2], item.merchant
+    parent.verify
   end
 end

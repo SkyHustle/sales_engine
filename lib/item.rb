@@ -14,10 +14,18 @@ class Item
     @id          = row[:id].to_i
     @name        = row[:name]
     @description = row[:description]
-    # @unit_price  = BigDecimal.new(row[:unit_price])/100
+    @unit_price  = row[:unit_price].to_i
     @merchant_id = row[:merchant_id].to_i
     @created_at  = row[:created_at]
     @updated_at  = row[:updated_at]
     @repository  = repository
+  end
+
+  def invoice_items
+    repository.find_invoice_items(id)
+  end
+
+  def merchant
+    repository.find_merchant(id)
   end
 end
