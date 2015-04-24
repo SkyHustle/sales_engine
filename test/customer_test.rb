@@ -1,4 +1,4 @@
-require_relative './test_helper'
+require_relative '../test/test_helper'
 require_relative '../lib/customer'
 require_relative '../lib/customer_repository'
 require_relative '../lib/load_file'

@@ -1,4 +1,4 @@
-require_relative './test_helper'
+require_relative '../test/test_helper'
 require_relative '../lib/transaction'
 
 class TransactionTest < Minitest::Test
