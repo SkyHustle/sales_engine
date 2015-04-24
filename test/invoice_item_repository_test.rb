@@ -4,7 +4,7 @@ require_relative '../lib/invoice_item_repository'
 
 class InvoiceItemRepositoryTest < Minitest::Test
 
-  def test_it_starts_with_an_empty_array
+  def test_it_starts_out_as_empty
     invoice_item_repository = InvoiceItemRepository.new(nil)
     assert_equal [], invoice_item_repository.invoice_items
   end
@@ -21,4 +21,17 @@ class InvoiceItemRepositoryTest < Minitest::Test
     refute_equal 20, invoice_item_repository.invoice_items.first.item_id
     refute_equal "Braslev", invoice_item_repository.invoice_items[0].invoice_id
   end
+
+  def test_it_contains_all_invoice_items
+    invoice_item_repository = InvoiceItemRepository.new(nil)
+    invoice_item_repository.load_data("./fixtures/invoice_item.csv")
+    refute invoice_item_repository.invoice_items.empty?
+  end
+
+  def test_it_can_return_random_sample_of_invoice_item
+    invoice_item_repository = InvoiceItemRepository.new(nil)
+    invoice_item_repository.load_data("../fixtures/invoice_item.csv")
+    assert invoice_item_repository.random
+  end
+
 end
