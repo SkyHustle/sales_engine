@@ -99,12 +99,11 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal 3, result.count
   end
 
-  # def test_it_can_talk_to_the_parent_with_invoice
-  #   parent = Minitest::Mock.new
-  #   customer_repository = CustomerRepository.new(parent)
-  #   parent.expect(:find_invoices_by_customer_id, "pizza", [1])
-
-  #   assert_equal "pizza", customer_repository.find_invoices(1)
-  #   parent.verify
-  # end
+  def test_it_can_talk_to_the_parent_with_invoice
+    parent = Minitest::Mock.new
+    customer_repository = CustomerRepository.new(parent)
+    parent.expect(:find_invoices_by_customer_id, "pizza", [1])
+    assert_equal "pizza", customer_repository.find_invoices(1)
+    parent.verify
+  end
 end
