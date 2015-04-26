@@ -57,53 +57,47 @@ class CustomerRepositoryTest < Minitest::Test
     assert_equal "2012-03-27 14:54:09 UTC", result.created_at
   end
 
-  # def test_it_can_find_by_updated_at
-  #   customer_repository = CustomerRepository.new(nil)
-  #   customer_repository.load_data("./fixtures/customers.csv")
-  #   result = customer_repository.find_by_updated_at("2012-03-27 14:54:11 UTC")
+  def test_it_can_find_by_updated_at
+    customer_repository = CustomerRepository.new(nil)
+    customer_repository.load_data("./fixtures/customers.csv")
+    result = customer_repository.find_by_updated_at("2012-03-27 14:54:11 UTC")
+    assert_equal "2012-03-27 14:54:11 UTC", result.updated_at
+  end
 
-  #   assert_equal "2012-03-27 14:54:11 UTC", result.updated_at
-  # end
+  def test_it_can_find_all_by_id
+    customer_repository = CustomerRepository.new(nil)
+    customer_repository.load_data("./fixtures/customers.csv")
+    result = customer_repository.find_all_by_id(4)
+    assert_equal 1, result.count
+  end
 
-  # def test_it_can_find_all_by_id
-  #   customer_repository = CustomerRepository.new(nil)
-  #   customer_repository.load_data("./fixtures/customers.csv")
-  #   result = customer_repository.find_all_by_id(4)
+  def test_it_can_find_all_by_first_name
+    customer_repository = CustomerRepository.new(nil)
+    customer_repository.load_data("./fixtures/customers.csv")
+    result = customer_repository.find_all_by_first_name("leanne")
+    assert_equal 1, result.count
+  end
 
-  #   assert_equal 1, result.count
-  # end
+  def test_it_can_find_all_by_last_name
+    customer_repository = CustomerRepository.new(nil)
+    customer_repository.load_data("./fixtures/customers.csv")
+    result = customer_repository.find_all_by_last_name("luettgen")
+    assert_equal 2, result.count
+  end
 
-  # def test_it_can_find_all_by_first_name
-  #   customer_repository = CustomerRepository.new(nil)
-  #   customer_repository.load_data("./fixtures/customers.csv")
-  #   result = customer_repository.find_all_by_first_name("mary")
+  def test_it_can_find_all_by_created_at
+    customer_repository = CustomerRepository.new(nil)
+    customer_repository.load_data("./fixtures/customers.csv")
+    result = customer_repository.find_all_by_created_at("2012-03-27 14:54:17 UTC")
+    assert_equal 3, result.count
+  end
 
-  #   assert_equal 1, result.count
-  # end
-
-  # def test_it_can_find_all_by_last_name
-  #   customer_repository = CustomerRepository.new(nil)
-  #   customer_repository.load_data("./fixtures/customers.csv")
-  #   result = customer_repository.find_all_by_last_name("luettgen")
-
-  #   assert_equal 6, result.count
-  # end
-
-  # def test_it_can_find_all_by_created_at
-  #   customer_repository = CustomerRepository.new(nil)
-  #   customer_repository.load_data("./fixtures/customers.csv")
-  #   result = customer_repository.find_all_by_created_at("2012-03-27 14:54:17 UTC")
-
-  #   assert_equal 3, result.count
-  # end
-
-  # def test_it_can_find_all_by_updated_at
-  #   customer_repository = CustomerRepository.new(nil)
-  #   customer_repository.load_data("./fixtures/customers.csv")
-  #   result = customer_repository.find_all_by_updated_at("2012-03-27 14:54:17 UTC")
-
-  #   assert_equal 3, result.count
-  # end
+  def test_it_can_find_all_by_updated_at
+    customer_repository = CustomerRepository.new(nil)
+    customer_repository.load_data("./fixtures/customers.csv")
+    result = customer_repository.find_all_by_updated_at("2012-03-27 14:54:17 UTC")
+    assert_equal 3, result.count
+  end
 
   # def test_it_can_talk_to_the_parent_with_invoice
   #   parent = Minitest::Mock.new
