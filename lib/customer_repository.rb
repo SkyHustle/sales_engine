@@ -23,29 +23,35 @@ class CustomerRepository
     "#<#{self.class} #{items.size} rows>"
   end
 
-
-
-
-  def find_by_first_name(name)
-    
-  end
-
   def all
-    # all returns all instances
+    customers(&:find_all)
   end
 
   def random
-    # random returns a random instance
+    customers.sample
   end
 
   def find_by_id(id)
-    
-  # find_by_X(match), where X is some attribute, returns a single instance whose X attribute case -insensitive attribute matches the match parameter.For instance, customer_repository.find_by_first_name("Mary") could find a Customer with the first name attribute "Mary" or "mary" but not "Mary Ellen".
+    customers.find { |customer| customer.id == id }
   end
 
-  def find_all_by_x
-  #     find_all_by_X(match) works just like find_by_X except it returns a collection of all matches.If there is no match, it returns an empty Array.
+  def find_by_first_name(first_name)
+    customers.find { |customer| customer.first_name.downcase == first_name.downcase }
   end
+
+  def find_by_last_name(last_name)
+    customers.find { |customer| customer.last_name.downcase == last_name.downcase }
+  end
+  
+  def find_by_created_at(created_at)
+    customers.find { |customer| customer.created_at == created_at }
+  end
+
+  def find_by_updated_at(updated_at)
+    customers.find { |customer| customer.updated_at == updated_at }
+  end
+
+  
 
 end
 
