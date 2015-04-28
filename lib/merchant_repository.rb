@@ -73,28 +73,6 @@ class MerchantRepository
     sales_engine.find_invoices_by_merchant_id(id)
   end
 
-  def most_revenue(x)
-    merchants.sort_by do |merchant|
-      merchant.revenue
-    end.reverse.first(x)
-  end
-
-  def most_items(x)
-    merchants.sort_by do |merchant|
-      merchant.quantity_successful_items
-    end.reverse.first(x)
-  end
-
-  def revenue(date)
-    revenues = merchants.map do |merchant|
-      merchant.revenue(date)
-    end
-    no_nil_revenues = revenues.select do |revenue|
-      !revenue.nil?
-    end
-    no_nil_revenues.map { |rev| rev.to_d }.inject(:+)
-  end
-
   private
 
   def find_by_attribute(attribute, given)
