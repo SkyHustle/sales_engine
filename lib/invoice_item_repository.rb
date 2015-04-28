@@ -95,28 +95,6 @@ class InvoiceItemRepository
     sales_engine.find_item_by_id(item_id)
   end
 
-  def create_new_items(items, id)
-    items.each do |item|
-      grouped_items = items.group_by do |item|
-        item
-      end
-      quantity = grouped_items.map do |item|
-        item.count
-      end.uniq.flatten.join
-      line = {
-        id:         "#{invoice_items.last.id + 1}",
-        item_id:    item.id,
-        invoice_id: id,
-        quantity:   quantity,
-        unit_price: item.unit_price,
-        created_at: "#{Date.new}",
-        updated_at: "#{Date.new}"
-              }
-     new_invoice_item = InvoiceItem.new(line, self)
-     invoice_items << new_invoice_item
-    end
-  end
-
   private
 
   def find_by_attribute(attribute, given)

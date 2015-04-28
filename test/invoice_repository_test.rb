@@ -165,21 +165,4 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal "pizza", invoice_repository.find_merchant(1)
     parent.verify
   end
-
-  def test_it_can_talk_to_the_parent_with_new_charge
-    parent = Minitest::Mock.new
-    invoice_repository = InvoiceRepository.new(parent)
-    parent.expect(:new_charge_with_invoice_id, "pizza", [1, 2])
-
-    assert_equal "pizza", invoice_repository.new_charge(1, 2)
-    parent.verify
-  end
-
-  def test_it_can_create_an_invoice
-    sales_engine = SalesEngine.new("./data")
-    sales_engine.startup
-    sales_engine.invoice_repository.create(customer: sales_engine.invoice_repository.invoices[0].customer, merchant: sales_engine.invoice_repository.invoices[14].merchant, status: "shipped", items: sales_engine.invoice_repository.invoices[0].items)
-
-    assert_equal 4844, sales_engine.invoice_repository.invoices.last.id
-  end
 end
