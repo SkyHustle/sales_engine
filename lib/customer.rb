@@ -20,27 +20,18 @@ class Customer
   end
 
   def transactions
-    invoices.map do |invoice|
-      invoice.transactions
-    end.flatten
+    invoices.flat_map(&:transactions)
   end
 
   def favorite_merchant
-    invoices = successful_transactions.map { |transaction| transaction.invoice } 
-    invoices.group_by { |invoice| invoice.merchant_id }
-
-    # return invoices with most reacurring merchant_id 
-    require 'pry'; binding.pry
+    invoices = successful_transactions.map(&:invoice) 
+    merchant_id = invoices.group_by(&:merchant_id)
+                          .max_by { |merchant_id, invoices| invoices.length}
+                          .first
+    repository.sales_engine.find_merchant_by_id(merchant_id)
   end
 
   def successful_transactions
-    transactions.find_all { |transaction| transaction.successful? }
+    transactions.find_all(&:successful?)
   end
-
 end
-
-#transactions returns an array of Transaction instances 
-# the customer has had
-
-#favorite_merchant returns an instance of Merchant 
-# where the customer has conducted the most successful transactions
