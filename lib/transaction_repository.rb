@@ -32,11 +32,13 @@ class TransactionRepository
   end
 
   def all_successful
-    transactions.find { |transaction| transaction.result == "success" }
+    transactions.select do |transaction|
+      transaction.result == "success"
+    end
   end
 
   def find_by_id(id)
-    transactions.find { |transaction| transaction.id == id }
+    find_by_attribute(:id, id)
   end
 
   def find_by_invoice_id(invoice_id)

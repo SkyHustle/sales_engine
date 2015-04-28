@@ -7,24 +7,24 @@ class CustomerRepository
   include LoadFile
 
   def initialize(sales_engine)
-    @customers    = []
+    @customers = []
     @sales_engine = sales_engine
   end
 
   def load_data(path)
     file = load_file(path)
-    @customers = file.map do |row|
-      Customer.new(row, self)
+    @customers = file.map do |line|
+      Customer.new(line, self)
     end
     file.close
   end
 
   def inspect
-    "#<#{self.class} #{items.size} rows>"
+  "#<#{self.class} #{@customers.size} rows>"
   end
 
   def all
-    customers(&:find_all)
+    customers
   end
 
   def random
@@ -32,48 +32,64 @@ class CustomerRepository
   end
 
   def find_by_id(id)
-    customers.find { |customer| customer.id == id }
+    find_by_attribute(:id, id)
   end
 
   def find_by_first_name(first_name)
-    customers.find { |customer| customer.first_name.downcase == first_name.downcase }
+    customers.detect do |customer|
+      customer.first_name.downcase == first_name.downcase
+    end
   end
 
   def find_by_last_name(last_name)
-    customers.find { |customer| customer.last_name.downcase == last_name.downcase }
+    customers.detect do |customer|
+      customer.last_name.downcase == last_name.downcase
+    end
   end
-  
+
   def find_by_created_at(created_at)
-    customers.find { |customer| customer.created_at == created_at }
+    find_by_attribute(:created_at, created_at)
   end
 
   def find_by_updated_at(updated_at)
-    customers.find { |customer| customer.updated_at == updated_at }
+    find_by_attribute(:updated_at, updated_at)
   end
 
   def find_all_by_id(id)
-    customers.find_all { |customer| customer.id == id }
+    find_all_by_attribute(:id, id)
   end
 
   def find_all_by_first_name(first_name)
-    customers.find_all { |customer| customer.first_name.downcase == first_name.downcase }
+    customers.select do |customer|
+      customer.first_name.downcase == first_name.downcase
+    end
   end
 
   def find_all_by_last_name(last_name)
-    customers.find_all { |customer| customer.last_name.downcase == last_name.downcase }
+    customers.select do |customer|
+      customer.last_name.downcase == last_name.downcase
+    end
   end
 
   def find_all_by_created_at(created_at)
-    customers.find_all { |customer| customer.created_at == created_at }
+    find_all_by_attribute(:created_at, created_at)
   end
 
   def find_all_by_updated_at(updated_at)
-    customers.find_all { |customer| customer.updated_at == updated_at }
+    find_all_by_attribute(:updated_at, updated_at)
   end
 
   def find_invoices(id)
     sales_engine.find_invoices_by_customer_id(id)
   end
 
-end
+  private
 
+  def find_by_attribute(attribute, given)
+    customers.detect { |customer| customer.send(attribute) == given }
+  end
+
+  def find_all_by_attribute(attribute, given)
+    customers.select { |customer| customer.send(attribute) == given }
+  end
+end

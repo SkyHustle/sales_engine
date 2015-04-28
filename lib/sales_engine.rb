@@ -27,8 +27,8 @@ class SalesEngine
     @transaction_repository.load_data("#{@filepath}/transactions.csv")
     @item_repository = ItemRepository.new(self)
     @item_repository.load_data("#{@filepath}/items.csv")
-    # @invoice_repository = InvoiceRepository.new(self)
-    # @invoice_repository.load_data("#{@filepath}/invoices.csv")
+    @invoice_repository = InvoiceRepository.new(self)
+    @invoice_repository.load_data("#{@filepath}/invoices.csv")
     @invoice_item_repository = InvoiceItemRepository.new(self)
     @invoice_item_repository.load_data("#{@filepath}/invoice_items.csv")
   end

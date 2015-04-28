@@ -10,14 +10,14 @@ class Item
               :updated_at,
               :repository
 
-  def initialize(row, repository)
-    @id          = row[:id].to_i
-    @name        = row[:name]
-    @description = row[:description]
-    @unit_price  = row[:unit_price].to_i
-    @merchant_id = row[:merchant_id].to_i
-    @created_at  = row[:created_at]
-    @updated_at  = row[:updated_at]
+  def initialize(line, repository)
+    @id          = line[:id].to_i
+    @name        = line[:name]
+    @description = line[:description]
+    @unit_price  = BigDecimal.new(line[:unit_price])/100
+    @merchant_id = line[:merchant_id].to_i
+    @created_at  = line[:created_at]
+    @updated_at  = line[:updated_at]
     @repository  = repository
   end
 
@@ -26,6 +26,13 @@ class Item
   end
 
   def merchant
-    repository.find_merchant(id)
+    repository.find_merchant(merchant_id)
   end
+
+  def best_day
+    maximum_item = invoice_items.max_by { |invoice_item| invoice_item.quantity }
+    maximum_item.invoice.created_at
+  end
+
+# returns the date with the most sales for the given item using the invoice date
 end

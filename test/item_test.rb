@@ -18,60 +18,71 @@ class ItemTest < Minitest::Test
               }
   end
 
-  def test_it_has_the_expected_id
+  def test_it_has_the_expected_initialized_id
     item = Item.new(data, nil)
-    assert_equal 1, item.id
-    refute_equal 3, item.id
+
+    assert 1, item.id
   end
 
-  def test_it_has_the_expected_name
+  def test_it_has_the_expected_initialized_name
     item = Item.new(data, nil)
-    assert_equal "Item Qui Esse", item.name
-    refute_equal "Item Qui E", item.name
+
+    assert "Item Qui Esse", item.name
   end
 
-  def test_it_has_the_expected_description
+  def test_it_has_the_expected_initialized_description
     item = Item.new(data, nil)
-    assert_equal "Nihil autem sit", item.description
-    refute_equal "Nihil sit", item.description
+
+    assert "Nihil autem sit", item.description
   end
 
-  def test_it_has_the_expected_unit_price
+  def test_it_has_the_expected_initialized_unit_price
     item = Item.new(data, nil)
-    assert_equal 75107, item.unit_price
+
+    assert 75107, item.unit_price
   end
 
-  def test_it_has_the_expected_merchant_id
+  def test_it_has_the_expected_initialized_merchant_id
     item = Item.new(data, nil)
-    assert_equal 1, item.id
-    refute_equal 5, item.id
+
+    assert 1, item.merchant_id
   end
 
-  def test_it_has_the_expected_created_at
+  def test_it_has_the_expected_initialized_created_at
     item = Item.new(data, nil)
-    assert_equal "2012-03-27 14:53:59 UTC", item.created_at
-    refute_equal " 14:53:59 UTC", item.created_at
+
+    assert "2012-03-27 14:53:59 UTC", item.created_at
   end
 
-  def test_it_has_the_expected_updated_at
+  def test_it_has_the_expected_initialized_updated_at
     item = Item.new(data, nil)
-    assert_equal "2012-03-27 14:53:59 UTC", item.updated_at
-    refute_equal "2012-03-27 14:53:59", item.updated_at
+
+    assert "2012-03-27 14:53:59 UTC", item.updated_at
   end
 
-  def test_it_can_talk_to_its_repository
+  def test_it_can_talk_to_the_repository_with_invoices
     parent = Minitest::Mock.new
     item = Item.new(data, parent)
     parent.expect(:find_invoice_items, [1, 2], [1])
+
     assert_equal [1, 2], item.invoice_items
     parent.verify
   end
 
-  def test_it_can_talk_to_its_repository
+  def test_it_can_talk_to_the_repository_with_merchant
     parent = Minitest::Mock.new
     item = Item.new(data, parent)
-    parent.expect(:find_merchant, [1, 2], [1])
-    assert_equal [1, 2], item.merchant
+    parent.expect(:find_merchant, "pizza", [1])
+
+    assert_equal "pizza", item.merchant
     parent.verify
+  end
+
+  def test_it_can_find_its_best_day
+    sales_engine = SalesEngine.new("./data")
+    sales_engine.startup
+    item = sales_engine.item_repository.items[2]
+
+    assert_equal "2012-03-10", item.best_day.to_s
   end
 end
