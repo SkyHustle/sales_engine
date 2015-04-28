@@ -15,12 +15,16 @@ class SalesEngine
               :filepath
 
   def initialize(filepath)
-    @filepath = filepath
+    @filepath = filepath 
   end
 
   def startup
     @customer_repository = CustomerRepository.new(self)
     @customer_repository.load_data("#{@filepath}/customers.csv")
+    
+
+
+
     @merchant_repository = MerchantRepository.new(self)
     @merchant_repository.load_data("#{@filepath}/merchants.csv")
     @transaction_repository = TransactionRepository.new(self)
@@ -75,13 +79,5 @@ class SalesEngine
 
   def find_customer_by_id(id)
     customer_repository.find_by_id(id)
-  end
-
-  def new_charge_with_invoice_id(card_info, id)
-    transaction_repository.create_new_charge(card_info, id)
-  end
-
-  def create_new_items_with_invoice_id(items, id)
-    invoice_item_repository.create_new_items(items, id)
   end
 end

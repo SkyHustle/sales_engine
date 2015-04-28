@@ -38,8 +38,4 @@ class Invoice
   def merchant
     repository.find_merchant(merchant_id)
   end
-
-  def charge(card_info)
-    repository.new_charge(card_info, id)
-  end
 end

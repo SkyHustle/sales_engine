@@ -24,4 +24,23 @@ class Customer
       invoice.transactions
     end.flatten
   end
+
+  def favorite_merchant
+    invoices = successful_transactions.map { |transaction| transaction.invoice } 
+    invoices.group_by { |invoice| invoice.merchant_id }
+
+    # return invoices with most reacurring merchant_id 
+    require 'pry'; binding.pry
+  end
+
+  def successful_transactions
+    transactions.find_all { |transaction| transaction.successful? }
+  end
+
 end
+
+#transactions returns an array of Transaction instances 
+# the customer has had
+
+#favorite_merchant returns an instance of Merchant 
+# where the customer has conducted the most successful transactions
