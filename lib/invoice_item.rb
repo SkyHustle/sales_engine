@@ -30,4 +30,8 @@ class InvoiceItem
   def item
     repository.find_item(item_id)
   end
+
+  def successful?
+    invoice.successful?
+  end
 end

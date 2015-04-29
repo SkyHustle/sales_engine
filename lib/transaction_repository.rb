@@ -97,6 +97,22 @@ class TransactionRepository
     sales_engine.find_invoice_by_id(id)
   end
 
+  def create_new_charge(card_info, id)
+    @invoice_id = id
+    line = {
+      id:          "#{transactions.last.id + 1}",
+      invoice_id:  "#{@invoice_id}",
+      credit_card_number: card_info[:credit_card_number],
+      credit_card_expiration_date: card_info[:credit_card_expiration_date],
+      result:      card_info[:result],
+      created_at:  "#{Date.new}",
+      updated_at:  "#{Date.new}",
+            }
+
+    new_trans = Transaction.new(line, self)
+    transactions << new_trans
+  end
+
   private
 
   def find_by_attribute(attribute, given)

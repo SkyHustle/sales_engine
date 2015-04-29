@@ -85,4 +85,12 @@ class ItemTest < Minitest::Test
 
     assert_equal "2012-03-10", item.best_day.to_s
   end
+
+  def test_it_can_find_highest_grossing_item
+    sales_engine = SalesEngine.new("./data")
+    sales_engine.startup
+    item = sales_engine.item_repository.items[2]
+
+    assert_equal BigDecimal, item.revenue.class    
+  end
 end

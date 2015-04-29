@@ -42,4 +42,8 @@ class Invoice
   def charge(card_info)
     repository.new_charge(card_info, id)
   end
+
+  def successful?
+    transactions.any?(&:successful?)
+  end
 end

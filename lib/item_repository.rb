@@ -95,7 +95,21 @@ class ItemRepository
     sales_engine.find_merchant_by_id(id)
   end
 
-  
+  def find_all_merchants
+    sales_engine.find_all_merchants
+  end
+
+  def most_revenue(x)
+    items.sort_by do |item|
+      item.revenue
+    end.reverse.first(x)
+  end
+
+  def most_items(x)
+    items.sort_by do |item|
+      item.quantity_sold
+    end.reverse.first(x)
+  end
 
   private
 

@@ -34,5 +34,14 @@ class Item
     maximum_item.invoice.created_at
   end
 
-# returns the date with the most sales for the given item using the invoice date
+  def revenue
+    successful_invoice_items = invoice_items.find_all(&:successful?)
+    successful_invoice_items.map(&:quantity).reduce(0, :+) * unit_price
+  end
+
+  def quantity_sold
+    successful_invoice_items = invoice_items.find_all(&:successful?)
+    successful_invoice_items.map(&:quantity).reduce(0, :+)
+  end
+
 end

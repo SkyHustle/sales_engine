@@ -82,13 +82,12 @@ class Merchant
     customer_id.map { |id| repository.sales_engine.find_customer_by_id(id) }
   end
 
-    
-  #   def quantity_successful_items
-  #   successful_transactions
-  #   successful_invoices = invoices.find_all(&:successful)
+  def quantity_successful_items
+    invoices = successful_transactions.map(&:invoice)
+    invoice_ids = invoices.flat_map(&:id)
+    invoice_items = invoice_ids.flat_map { |ids|
+        repository.sales_engine.find_invoice_items_by_invoice_id(ids) }
 
-  #   successful_invoice_items = successful_invoices.map do |invoice|
-  #     invoice.items
-  #   end.flatten.count
-  # end
+    total_items_sold = invoice_items.flat_map(&:quantity).reduce(:+)
+  end
 end
