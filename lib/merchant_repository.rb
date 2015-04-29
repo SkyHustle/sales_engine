@@ -100,6 +100,12 @@ class MerchantRepository
     end.reverse.first(x)
   end
 
+  def most_items(x)
+    merchants.sort_by do |merchant|
+      merchant.quantity_successful_items
+    end.reverse.first(x)
+  end
+
   private
 
   def find_by_attribute(attribute, given)

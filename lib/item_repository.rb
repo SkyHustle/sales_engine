@@ -95,6 +95,8 @@ class ItemRepository
     sales_engine.find_merchant_by_id(id)
   end
 
+  
+
   private
 
   def find_by_attribute(attribute, given)

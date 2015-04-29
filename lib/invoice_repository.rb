@@ -95,6 +95,27 @@ class InvoiceRepository
     sales_engine.find_merchant_by_id(id)
   end
 
+  def create(inputs)
+    line = {
+      id:          "#{invoices.last.id + 1}",
+      customer_id: inputs[:customer].id,
+      merchant_id: inputs[:merchant].id,
+      status:      inputs[:status],
+      created_at:  "#{Date.new}",
+      updated_at:  "#{Date.new}",
+            }
+
+    new_inv = Invoice.new(line, self)
+    invoices << new_inv
+
+    sales_engine.create_new_items_with_invoice_id(inputs[:items], new_inv.id)
+    new_inv
+  end
+
+  def new_charge(card_info, id)
+    sales_engine.new_charge_with_invoice_id(card_info, id)
+  end
+
   private
 
   def find_by_attribute(attribute, given)

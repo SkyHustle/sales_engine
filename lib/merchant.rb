@@ -81,4 +81,14 @@ class Merchant
     customer_id = pending_transactions.flat_map(&:customer_id).uniq
     customer_id.map { |id| repository.sales_engine.find_customer_by_id(id) }
   end
+
+    
+  #   def quantity_successful_items
+  #   successful_transactions
+  #   successful_invoices = invoices.find_all(&:successful)
+
+  #   successful_invoice_items = successful_invoices.map do |invoice|
+  #     invoice.items
+  #   end.flatten.count
+  # end
 end
