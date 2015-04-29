@@ -76,7 +76,7 @@ class MerchantRepository
   def find_all_invoices
     sales_engine.find_all_invoices
   end
-  
+
   def successful_transactions
     find_all_invoices.flat_map(&:transactions)
                      .find_all(&:successful?)
@@ -92,6 +92,12 @@ class MerchantRepository
     quantity   = invoice_items.flat_map(&:quantity)
     unit_price = invoice_items.flat_map(&:unit_price)
     quantity.zip(unit_price).map { |q, p| q * p }.reduce(:+)
+  end
+
+  def most_revenue(x)
+     merchants.sort_by do |merchant|
+      merchant.revenue
+    end.reverse.first(x)
   end
 
   private
