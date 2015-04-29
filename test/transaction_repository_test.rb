@@ -145,4 +145,13 @@ class TransactionRepositoryTest < Minitest::Test
 
     assert_equal 4648, result.count
   end
+
+  def test_it_can_create_a_new_transaction
+    sales_engine = SalesEngine.new("./data")
+    sales_engine.startup
+    sales_engine.transaction_repository.create_new_charge(credit_card_number: "4444333322221111",
+               credit_card_expiration: "10/13", result: "success")
+
+    assert_equal "success", sales_engine.transaction_repository.transactions.last.result
+  end
 end
