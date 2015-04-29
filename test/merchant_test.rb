@@ -56,24 +56,16 @@ class MerchantTest < Minitest::Test
     parent.verify
   end
 
-  def test_it_knows_total_revenue_for_a_merchant
+  def test_it_can_find_its_total_revenue
     sales_engine = SalesEngine.new("./data")
     sales_engine.startup
-    merchant = sales_engine.merchant_repository.merchants[1]
-    assert_equal BigDecimal, merchant.revenue.class
+    assert_equal "338055.54", sales_engine.merchant_repository.merchants[2].revenue.to_digits
   end
 
-  def test_it_knows_total_revenue_for_a_merchant_on_specific_date
+  def test_it_can_find_its_total_revenue_by_date
+    skip
     sales_engine = SalesEngine.new("./data")
     sales_engine.startup
-    merchant = sales_engine.merchant_repository.merchants[1]
-    assert_equal BigDecimal.new("8373.29"), merchant.revenue("Fri, 09 Mar 2012")
-  end
-
-  def test_it_knows_total_revenue_for_a_merchant_on_specific_other_date
-    sales_engine = SalesEngine.new("./data")
-    sales_engine.startup
-    merchant = sales_engine.merchant_repository.merchants[1]
-    assert_equal BigDecimal, merchant.revenue("Sat, 10 Mar 2012").class
-  end      
+    assert_equal "8373.29", sales_engine.merchant_repository.merchants[0].revenue("Fri, 09 Mar 2012")
+  end     
 end

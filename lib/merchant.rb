@@ -47,10 +47,11 @@ class Merchant
       quantity.zip(unit_price).map { |q, p| q * p }.reduce(:+)
     else
       invoices = successful_transactions.map(&:invoice)
-      converted_date_keys = invoices.group_by { |invoice| 
-        invoice.created_at.strftime("%a, %d %b %Y") }
-        
-      invoice_ids = converted_date_keys[date].flat_map(&:id)
+      
+      invoices_on_date = invoices.find_all { |invoice| 
+                          invoice.created_at == date }
+      
+      invoice_ids = invoices_on_date.flat_map(&:id)
       
       invoice_items = invoice_ids.flat_map { |ids| 
         repository.sales_engine.find_invoice_items_by_invoice_id(ids) }
@@ -58,6 +59,7 @@ class Merchant
       quantity   = invoice_items.flat_map(&:quantity)
       unit_price = invoice_items.flat_map(&:unit_price)
       quantity.zip(unit_price).map { |q, p| q * p }.reduce(:+)
+      require 'pry'; binding.pry
     end
   end
 
