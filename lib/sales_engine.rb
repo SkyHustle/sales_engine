@@ -15,16 +15,12 @@ class SalesEngine
               :filepath
 
   def initialize(filepath)
-    @filepath = filepath 
+    @filepath = filepath
   end
 
   def startup
     @customer_repository = CustomerRepository.new(self)
     @customer_repository.load_data("#{@filepath}/customers.csv")
-    
-
-
-
     @merchant_repository = MerchantRepository.new(self)
     @merchant_repository.load_data("#{@filepath}/merchants.csv")
     @transaction_repository = TransactionRepository.new(self)

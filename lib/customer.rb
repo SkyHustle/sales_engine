@@ -24,7 +24,7 @@ class Customer
   end
 
   def favorite_merchant
-    invoices = successful_transactions.map(&:invoice) 
+    invoices = successful_transactions.map(&:invoice)
     merchant_id = invoices.group_by(&:merchant_id)
                           .max_by { |merchant_id, invoices| invoices.length}
                           .first
