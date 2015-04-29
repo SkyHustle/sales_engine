@@ -33,6 +33,16 @@ class Merchant
     transactions.find_all(&:successful?)
   end
 
+  def unsuccessful_transactions
+    transactions.find_all(&:unsuccessful?)
+  end
+
+  def pending_transactions
+    all_invoices = invoices
+    successful   = successful_transactions.map(&:invoice).uniq
+    all_invoices - successful
+  end
+
   def date_convert(created_at)
     created_at.strftime("%a, %m %b %Y")
   end
@@ -59,10 +69,21 @@ class Merchant
       quantity   = invoice_items.flat_map(&:quantity)
       unit_price = invoice_items.flat_map(&:unit_price)
       quantity.zip(unit_price).map { |q, p| q * p }.reduce(:+)
-      require 'pry'; binding.pry
     end
   end
 
+  def favorite_customer
+    invoices = successful_transactions.map(&:invoice)
+    customer_id = invoices.group_by(&:customer_id)
+                      .max_by { |customer_id, invoices| invoices.length }
+                      .first
+    repository.sales_engine.find_customer_by_id(customer_id)
+  end
 
-
+  def customers_with_pending_invoices
+    # invoices = unsuccessful_transactions.map(&:invoice)
+    customer_id = pending_transactions.flat_map(&:customer_id).uniq
+    customer_id.map { |id| repository.sales_engine.find_customer_by_id(id) }
+    # require 'pry'; binding.pry
+  end
 end

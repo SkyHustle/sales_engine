@@ -80,4 +80,5 @@ class SalesEngine
   def find_customer_by_id(id)
     customer_repository.find_by_id(id)
   end
+
 end

@@ -55,7 +55,7 @@ class CustomerTest < Minitest::Test
     assert_equal 7, customer.transactions.size
   end
 
-  def test_it_knows_favorite_merchant_by_most_transactions
+  def test_it_knows_favorite_merchant_by_most_successful_transactions
     sales_engine = SalesEngine.new("./data")
     sales_engine.startup
     customer = sales_engine.customer_repository.customers[1]
