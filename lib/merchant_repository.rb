@@ -73,6 +73,27 @@ class MerchantRepository
     sales_engine.find_invoices_by_merchant_id(id)
   end
 
+  def find_all_invoices
+    sales_engine.find_all_invoices
+  end
+  
+  def successful_transactions
+    find_all_invoices.flat_map(&:transactions)
+                     .find_all(&:successful?)
+  end
+
+  def revenue(date)
+    invoices = successful_transactions.map(&:invoice)
+    invoices_on_date = invoices.find_all { |invoice|
+                        invoice.created_at == date }
+    invoice_ids = invoices_on_date.flat_map(&:id)
+    invoice_items = invoice_ids.flat_map { |ids|
+      sales_engine.find_invoice_items_by_invoice_id(ids) }
+    quantity   = invoice_items.flat_map(&:quantity)
+    unit_price = invoice_items.flat_map(&:unit_price)
+    quantity.zip(unit_price).map { |q, p| q * p }.reduce(:+)
+  end
+
   private
 
   def find_by_attribute(attribute, given)

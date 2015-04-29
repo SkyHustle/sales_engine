@@ -66,7 +66,7 @@ class MerchantTest < Minitest::Test
     skip
     sales_engine = SalesEngine.new("./data")
     sales_engine.startup
-    assert_equal "8373.29", sales_engine.merchant_repository.merchants[0].revenue("Fri, 09 Mar 2012")
+    assert_equal "8373.29", sales_engine.merchant_repository.merchants[0].revenue("Friday, 2012-03-09")
   end
 
   def test_it_knows_favorite_customer_by_most_successful_transactions

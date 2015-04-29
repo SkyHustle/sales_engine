@@ -146,4 +146,5 @@ class MerchantRepositoryTest < Minitest::Test
 
     assert_equal "21067.77", result.to_digits
   end
+
 end

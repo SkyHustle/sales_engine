@@ -77,4 +77,8 @@ class SalesEngine
     customer_repository.find_by_id(id)
   end
 
+  def find_all_invoices
+    invoice_repository.all
+  end
+
 end
