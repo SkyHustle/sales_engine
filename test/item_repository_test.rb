@@ -163,21 +163,19 @@ class ItemRepositoryTest < Minitest::Test
     parent.verify
   end
 
-  def test_it_can_find_most_revenues
-    skip
+  def test_it_can_find_highest_grossing_item
     sales_engine = SalesEngine.new("./data")
     sales_engine.startup
     result = sales_engine.item_repository.most_revenue(3)
 
-    assert_equal "Item Inventore Omnis", result.first.name
+    assert_equal 227, result.first.id
   end
 
   def test_it_can_find_most_sold
-    skip
     sales_engine = SalesEngine.new("./data")
     sales_engine.startup
     result = sales_engine.item_repository.most_items(5)
 
-    assert_equal "Item Inventore Omnis", result.first.name
+    assert_equal "Item Dicta Autem", result.first.name
   end
 end

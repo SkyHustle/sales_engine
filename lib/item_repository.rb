@@ -32,65 +32,66 @@ class ItemRepository
   end
 
   def find_by_id(id)
-    find_by_attribute(:id, id)
+    items.find { |items| items.id == id }
   end
 
   def find_by_name(name)
-    find_by_attribute(:name, name)
+    items.find { |items| items.name.downcase == name.downcase }
   end
 
   def find_by_description(description)
-    find_by_attribute(:description, description)
+    items.find { |items| items.description.downcase == description.downcase}
   end
 
   def find_by_unit_price(unit_price)
-    find_by_attribute(:unit_price, unit_price)
+    items.find { |items| items.unit_price == unit_price}
   end
 
-  def find_by_merchant_id(merchant_id)
-    find_by_attribute(:merchant_id, merchant_id)
+  def find_by_merchant_id(id)
+    items.find { |items| items.merchant_id == id }
   end
 
-  def find_by_created_at(created_at)
-    find_by_attribute(:created_at, created_at)
+  def find_by_created_at(created_date)
+    items.find { |items| items.created_at == created_date }
   end
 
-  def find_by_updated_at(updated_at)
-    find_by_attribute(:updated_at, updated_at)
+  def find_by_updated_at(updated_date)
+    items.find { |items| items.updated_at == updated_date }
   end
 
   def find_all_by_id(id)
-    find_all_by_attribute(:id, id)
+    items.find_all { |items| items.id == id }
   end
 
   def find_all_by_name(name)
-    find_all_by_attribute(:name, name)
+    items.find_all { |items| items.name.downcase == name.downcase }
   end
 
   def find_all_by_description(description)
-    find_all_by_attribute(:description, description)
+    items.find_all { |items|
+      items.description.downcase == description.downcase }
   end
 
-  def find_all_by_unit_price(unit_price)
-    find_all_by_attribute(:unit_price, unit_price)
+  def find_all_by_unit_price(price)
+    items.find_all { |items| items.unit_price == price }
   end
 
-  def find_all_by_merchant_id(merchant_id)
-    find_all_by_attribute(:merchant_id, merchant_id)
+  def find_all_by_merchant_id(id)
+    items.find_all { |items| items.merchant_id == id }
   end
 
-  def find_all_by_created_at(created_at)
-    find_all_by_attribute(:created_at, created_at)
+  def find_all_by_created_at(created_date)
+    items.find_all { |items| items.created_at == created_date }
   end
 
-  def find_all_by_updated_at(updated_at)
-    find_all_by_attribute(:updated_at, updated_at)
+  def find_all_by_updated_at(updated_date)
+    items.find_all { |items| items.updated_at == updated_date }
   end
 
   def find_invoice_items(id)
     sales_engine.find_invoice_items_by_item_id(id)
   end
-
+  
   def find_merchant(id)
     sales_engine.find_merchant_by_id(id)
   end
@@ -109,15 +110,5 @@ class ItemRepository
     items.sort_by do |item|
       item.quantity_sold
     end.reverse.first(x)
-  end
-
-  private
-
-  def find_by_attribute(attribute, given)
-    items.detect { |item| item.send(attribute) == given }
-  end
-
-  def find_all_by_attribute(attribute, given)
-    items.select { |item| item.send(attribute) == given }
   end
 end
