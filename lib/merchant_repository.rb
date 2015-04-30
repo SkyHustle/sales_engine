@@ -34,35 +34,35 @@ class MerchantRepository
   end
 
   def find_by_id(id)
-    find_by_attribute(:id, id)
+    merchants.find { |merchant| merchant.id == id }
   end
 
   def find_by_name(name)
-    find_by_attribute(:name, name)
+    merchants.find { |merchant| merchant.name == name }
   end
 
   def find_by_created_at(created_at)
-    find_by_attribute(:created_at, created_at)
+    merchants.find { |merchant| merchant.created_at == created_at }
   end
 
   def find_by_updated_at(updated_at)
-    find_by_attribute(:updated_at, updated_at)
+    merchants.find { |merchant| merchant.updated_at == updated_at }
   end
 
   def find_all_by_id(id)
-    find_all_by_attribute(:id, id)
+    merchants.find_all { |merchant| merchant.id == id }
   end
 
   def find_all_by_name(name)
-    find_all_by_attribute(:name, name)
+    merchants.find_all { |merchant| merchant.name == name }
   end
 
   def find_all_by_created_at(created_at)
-    find_all_by_attribute(:created_at, created_at)
+    merchants.find_all { |merchant| merchant.created_at == created_at }
   end
 
   def find_all_by_updated_at(updated_at)
-    find_all_by_attribute(:updated_at, updated_at)
+    merchants.find_all { |merchant| merchant.updated_at == updated_at }
   end
 
   def find_items(id)
@@ -104,15 +104,5 @@ class MerchantRepository
     merchants.sort_by do |merchant|
       merchant.quantity_successful_items
     end.reverse.first(x)
-  end
-
-  private
-
-  def find_by_attribute(attribute, given)
-    merchants.detect { |merchant| merchant.send(attribute) == given }
-  end
-
-  def find_all_by_attribute(attribute, given)
-    merchants.select { |merchant| merchant.send(attribute) == given }
   end
 end

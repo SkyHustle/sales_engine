@@ -32,59 +32,60 @@ class InvoiceItemRepository
   end
 
   def find_by_id(id)
-    find_by_attribute(:id, id)
+    invoice_items.find { |items| items.id == id }
   end
 
   def find_by_item_id(item_id)
-    find_by_attribute(:item_id, item_id)
+    invoice_items.find { |items| items.item_id == item_id }
   end
 
   def find_by_invoice_id(invoice_id)
-    find_by_attribute(:invoice_id, invoice_id)
+    invoice_items.find { |items| items.invoice_id == invoice_id }
   end
 
   def find_by_quantity(quantity)
-    find_by_attribute(:quantity, quantity)
+    invoice_items.find { |items| items.quantity == quantity }
   end
 
-  def find_by_unit_price(unit_price)
-    find_by_attribute(:unit_price, unit_price)
+  def find_by_unit_price(price)
+    invoice_items.find { |items| items.unit_price == price }
   end
 
-  def find_by_created_at(created_at)
-    find_by_attribute(:created_at, created_at)
+  def find_by_created_at(created_date)
+    invoice_items.find { |items| items.created_at == created_date }
   end
 
-  def find_by_updated_at(updated_at)
-    find_by_attribute(:updated_at, updated_at)
+  def find_by_updated_at(updated_date)
+    invoice_items.find { |items| items.updated_at == updated_date }
   end
 
   def find_all_by_id(id)
-    find_all_by_attribute(:id, id)
+    invoice_items.find_all { |invoice_items| invoice_items.id == id }
   end
 
   def find_all_by_item_id(item_id)
-    find_all_by_attribute(:item_id, item_id)
+    invoice_items.find_all { |invoice_items| invoice_items.item_id == item_id }
   end
 
   def find_all_by_invoice_id(invoice_id)
-    find_all_by_attribute(:invoice_id, invoice_id)
+    invoice_items.find_all { |invoice_items|
+      invoice_items.invoice_id == invoice_id }
   end
 
   def find_all_by_quantity(quantity)
-    find_all_by_attribute(:quantity, quantity)
+    invoice_items.find_all { |items| items.quantity == quantity }
   end
 
-  def find_all_by_unit_price(unit_price)
-    find_all_by_attribute(:unit_price, unit_price)
+  def find_all_by_unit_price(price)
+    invoice_items.find_all { |items| items.unit_price == price }
   end
 
-  def find_all_by_created_at(created_at)
-    find_all_by_attribute(:created_at, created_at)
+  def find_all_by_created_at(created_date)
+    invoice_items.find_all { |items| items.created_at == created_date }
   end
 
-  def find_all_by_updated_at(updated_at)
-    find_all_by_attribute(:updated_at, updated_at)
+  def find_all_by_updated_at(updated_date)
+    invoice_items.find_all { |items| items.updated_at == updated_date }
   end
 
   def find_invoice(id)
@@ -114,20 +115,6 @@ class InvoiceItemRepository
               }
      new_invoice_item = InvoiceItem.new(line, self)
      invoice_items << new_invoice_item
-    end
-  end
-
-  private
-
-  def find_by_attribute(attribute, given)
-    invoice_items.detect do |invoice_item|
-      invoice_item.send(attribute) == given
-    end
-  end
-
-  def find_all_by_attribute(attribute, given)
-    invoice_items.select do |invoice_item|
-      invoice_item.send(attribute) == given
     end
   end
 end
