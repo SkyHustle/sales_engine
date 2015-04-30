@@ -43,5 +43,4 @@ class Item
     successful_invoice_items = invoice_items.find_all(&:successful?)
     successful_invoice_items.map(&:quantity).reduce(0, :+)
   end
-
 end

@@ -32,51 +32,51 @@ class InvoiceRepository
   end
 
   def find_by_id(id)
-    find_by_attribute(:id, id)
+    invoices.find { |invoice| invoice.id == id }
   end
 
   def find_by_customer_id(customer_id)
-    find_by_attribute(:customer_id, customer_id)
+    invoices.find { |invoice| invoice.customer_id == customer_id }
   end
 
   def find_by_merchant_id(merchant_id)
-    find_by_attribute(:merchant_id, merchant_id)
+    invoices.find { |invoice| invoice.merchant_id == merchant_id }
   end
 
   def find_by_status(status)
-    find_by_attribute(:status, status)
+    invoices.find { |invoice| invoice.status == status }
   end
 
   def find_by_created_at(created_at)
-    find_by_attribute(:created_at, created_at)
+    invoices.find { |invoice| invoice.created_at == created_at }
   end
 
   def find_by_updated_at(updated_at)
-    find_by_attribute(:updated_at, updated_at)
+    invoices.find { |invoice| invoice.updated_at == updated_at }
   end
 
   def find_all_by_id(id)
-    find_all_by_attribute(:id, id)
+    invoices.find_all { |invoice| invoice.id == id }
   end
 
   def find_all_by_customer_id(customer_id)
-    find_all_by_attribute(:customer_id, customer_id)
+    invoices.find_all { |invoice| invoice.customer_id == customer_id }
   end
 
   def find_all_by_merchant_id(merchant_id)
-    find_all_by_attribute(:merchant_id, merchant_id)
+    invoices.find_all { |invoice| invoice.merchant_id == merchant_id }
   end
 
   def find_all_by_status(status)
-    find_all_by_attribute(:status, status)
+    invoices.find_all { |invoice| invoice.status == status }
   end
 
   def find_all_by_created_at(created_at)
-    find_all_by_attribute(:created_at, created_at)
+    invoices.find_all { |invoice| invoice.created_at == created_at }
   end
 
   def find_all_by_updated_at(updated_at)
-    find_all_by_attribute(:updated_at, updated_at)
+    invoices.find_all { |invoice| invoice.updated_at == updated_at }
   end
 
   def find_transactions(id)
@@ -95,6 +95,10 @@ class InvoiceRepository
     sales_engine.find_merchant_by_id(id)
   end
 
+  def new_charge(card_info, id)
+    sales_engine.new_charge_with_invoice_id(card_info, id)
+  end
+
   def create(inputs)
     line = {
       id:          "#{invoices.last.id + 1}",
@@ -110,19 +114,5 @@ class InvoiceRepository
 
     sales_engine.create_new_items_with_invoice_id(inputs[:items], new_inv.id)
     new_inv
-  end
-
-  def new_charge(card_info, id)
-    sales_engine.new_charge_with_invoice_id(card_info, id)
-  end
-
-  private
-
-  def find_by_attribute(attribute, given)
-    invoices.detect { |invoice| invoice.send(attribute) == given }
-  end
-
-  def find_all_by_attribute(attribute, given)
-    invoices.select { |invoice| invoice.send(attribute) == given }
   end
 end
