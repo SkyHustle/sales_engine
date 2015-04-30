@@ -103,7 +103,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
     invoice_item_repository.load_data("./data/invoice_items.csv")
     result = invoice_item_repository.find_all_by_item_id(523)
 
-    assert_equal 10, result.count
+    assert_equal 5, result.count
   end
 
   def test_it_can_find_all_by_invoice_id
@@ -119,7 +119,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
     invoice_item_repository.load_data("./data/invoice_items.csv")
     result = invoice_item_repository.find_all_by_quantity(7)
 
-    assert_equal 2181, result.count
+    assert_equal 1061, result.count
   end
 
   def test_it_can_find_all_by_unit_price
@@ -127,7 +127,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
     invoice_item_repository.load_data("./data/invoice_items.csv")
     result = invoice_item_repository.find_all_by_unit_price(BigDecimal.new(72018)/100)
 
-    assert_equal 33, result.count
+    assert_equal 19, result.count
   end
 
   def test_it_can_find_all_by_created_at

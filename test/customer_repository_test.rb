@@ -22,7 +22,7 @@ class CustomerRepositoryTest < Minitest::Test
     customer_repository = CustomerRepository.new(nil)
     customer_repository.load_data("./data/customers.csv")
 
-    assert_equal 1000, customer_repository.customers.count
+    assert_equal 99, customer_repository.customers.count
   end
 
   def test_it_can_return_random_sample
@@ -85,7 +85,7 @@ class CustomerRepositoryTest < Minitest::Test
     customer_repository.load_data("./data/customers.csv")
     result = customer_repository.find_all_by_first_name("mary")
 
-    assert_equal 1, result.count
+    assert_equal 0, result.count
   end
 
   def test_it_can_find_all_by_last_name
@@ -93,7 +93,7 @@ class CustomerRepositoryTest < Minitest::Test
     customer_repository.load_data("./data/customers.csv")
     result = customer_repository.find_all_by_last_name("luettgen")
 
-    assert_equal 6, result.count
+    assert_equal 3, result.count
   end
 
   def test_it_can_find_all_by_created_at

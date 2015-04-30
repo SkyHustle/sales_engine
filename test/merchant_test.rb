@@ -59,7 +59,7 @@ class MerchantTest < Minitest::Test
   def test_it_can_find_its_total_revenue
     sales_engine = SalesEngine.new("./data")
     sales_engine.startup
-    assert_equal "338055.54", sales_engine.merchant_repository.merchants[2].revenue.to_digits
+    assert_equal "176147.01", sales_engine.merchant_repository.merchants[2].revenue.to_digits
   end
 
   def test_it_can_find_its_total_revenue_by_date

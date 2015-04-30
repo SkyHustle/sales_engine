@@ -133,6 +133,6 @@ class MerchantRepositoryTest < Minitest::Test
     sales_engine.startup
     result = sales_engine.merchant_repository.most_items(1)
 
-    assert_equal "Kassulke, O'Hara and Quitzon", result.first.name
+    assert_equal "Okuneva, Prohaska and Rolfson", result.first.name
   end
 end
