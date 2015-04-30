@@ -1,4 +1,4 @@
-require 'bigdecimal'
+  require 'bigdecimal'
 require 'bigdecimal/util'
 require_relative '../test/test_helper'
 require_relative '../lib/merchant'
@@ -60,13 +60,6 @@ class MerchantTest < Minitest::Test
     sales_engine = SalesEngine.new("./data")
     sales_engine.startup
     assert_equal "176147.01", sales_engine.merchant_repository.merchants[2].revenue.to_digits
-  end
-
-  def test_it_can_find_its_total_revenue_by_date
-    skip
-    sales_engine = SalesEngine.new("./data")
-    sales_engine.startup
-    assert_equal "8373.29", sales_engine.merchant_repository.merchants[0].revenue("Friday, 2012-03-09")
   end
 
   def test_it_knows_favorite_customer_by_most_successful_transactions
